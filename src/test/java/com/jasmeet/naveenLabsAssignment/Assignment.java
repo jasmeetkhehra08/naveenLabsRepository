@@ -24,7 +24,7 @@ public class Assignment {
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\JK\\Drivers\\Chrome Driver 108\\chromedriver.exe");
 		// launch browser
 		wd = new ChromeDriver();
-		wd.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		// launch a page
 		wd.get("https://naveenautomationlabs.com/opencart/index.php?route=account/login");
 		wd.manage().window().maximize();
@@ -42,60 +42,103 @@ public class Assignment {
 		String title = wd.getTitle(); // validate the title of page.
 		Assert.assertEquals(title, "My Account", "Title does not match");
 		System.out.println(title);
-		WebElement laptopsAndNotebooks = wd.findElement(By.cssSelector("ul.nav>li:nth-of-type(2) a")); //selecting phones and PDA
+		WebElement laptopsAndNotebooks = wd.findElement(By.cssSelector("ul.nav>li:nth-of-type(2) a")); // selecting
+																										// phones and
+																										// PDA
 		laptopsAndNotebooks.click();
-		WebElement allLaptopsAndNotebooks =wd.findElement(By.cssSelector("ul.nav>li:nth-of-type(2)>div a.see-all"));
+		WebElement allLaptopsAndNotebooks = wd.findElement(By.cssSelector("ul.nav>li:nth-of-type(2)>div a.see-all"));
 		allLaptopsAndNotebooks.click();
 		String pageTitle = wd.getTitle();// validating page title
 		Assert.assertEquals(pageTitle, "Laptops & Notebooks", "page title does not match");
 		System.out.println(pageTitle);
-		WebElement selectProduct =wd.findElement(By.cssSelector("div.product-layout:nth-of-type(4) h4 a")); //selecting product
+		WebElement selectProduct = wd.findElement(By.cssSelector("div.product-layout:nth-of-type(4) h4 a")); // selecting
+																												// product
 		selectProduct.click();
-		WebElement addToCart= wd.findElement(By.cssSelector("div.form-group:last-of-type button")); //adding to cart
+		WebElement addToCart = wd.findElement(By.cssSelector("div.form-group:last-of-type button")); // adding to cart
 		addToCart.click();
+		sleep(1);
 		WebElement shoppingCart = wd.findElement(By.cssSelector("span[id='cart-total']"));
-//		String itemsInCart=shoppingCart.getText();
-//		Assert.assertEquals(itemsInCart, "1 item(s) - $2,000.00", "Incorrect Quantity");
-//		System.out.println(itemsInCart);
+		String itemsInCart=shoppingCart.getText();
+		Assert.assertEquals(itemsInCart, "1 item(s) - $2,000.00", "Incorrect Quantity");
+		System.out.println(itemsInCart);
 		shoppingCart.click();
-		WebElement checkout = wd.findElement(By.cssSelector("p.text-right a:last-of-type")); //checkout
+		WebElement checkout = wd.findElement(By.cssSelector("p.text-right a:last-of-type")); // checkout
 		checkout.click();
-		//billing details
-		WebElement firstName = wd.findElement(By.cssSelector("div.col-sm-10 input:first-of-type"));
-		firstName.sendKeys("J");
-		WebElement lastName = wd.findElement(By.cssSelector("input[name='lastname']"));
-		lastName.sendKeys("K");
-		WebElement address1 = wd.findElement(By.cssSelector("input[name='address_1']"));
-		address1.sendKeys("108 dumfries ave");
-		WebElement city = wd.findElement(By.cssSelector("input[name='city']"));
-		city.sendKeys("Brampton");
-		WebElement postalCode = wd.findElement(By.cssSelector("input[name='postcode']"));
-		postalCode.sendKeys("L6z2x8");
-		WebElement country = wd.findElement(By.cssSelector("select[name='country_id']"));
-		Select sc=new Select(country);
-		sc.selectByIndex(38);
-		WebElement state = wd.findElement(By.cssSelector("select[name='zone_id']"));
-		Select selectState = new Select(state);
-		selectState.selectByIndex(609);
+		// billing details
+		/*
+		 * WebElement firstName =
+		 * wd.findElement(By.cssSelector("div.col-sm-10 input:first-of-type"));
+		 * firstName.sendKeys("J"); WebElement lastName =
+		 * wd.findElement(By.cssSelector("input[name='lastname']"));
+		 * lastName.sendKeys("K"); WebElement address1 =
+		 * wd.findElement(By.cssSelector("input[name='address_1']"));
+		 * address1.sendKeys("108 dumfries ave"); WebElement city =
+		 * wd.findElement(By.cssSelector("input[name='city']"));
+		 * city.sendKeys("Brampton"); WebElement postalCode =
+		 * wd.findElement(By.cssSelector("input[name='postcode']"));
+		 * postalCode.sendKeys("L6z2x8"); WebElement country =
+		 * wd.findElement(By.cssSelector("select[name='country_id']")); Select sc = new
+		 * Select(country); sc.selectByIndex(38); WebElement state =
+		 * wd.findElement(By.cssSelector("select[name='zone_id']")); Select selectState
+		 * = new Select(state); selectState.selectByIndex(609);
+		 */
 		WebElement continueBtn = wd.findElement(By.cssSelector("div.pull-right input"));
 		continueBtn.click();
-		WebElement addressRadioBtn =wd.findElement(By.cssSelector("div.radio:first-of-type input:checked"));
-		addressRadioBtn.click();
-		WebElement continueBtn1 = wd.findElement(By.cssSelector("div.buttons>div input"));
+		//billing address
+		WebElement billingAddressRadioBtn = wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(2) div>form>div:first-of-type input"));
+		billingAddressRadioBtn.click();
+		WebElement continueBtn1 = wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(2)>div>div>form>div:last-of-type input"));
 		continueBtn1.click();
-		WebElement shippingRadioBtn =wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(4) label input"));
-		shippingRadioBtn.click();
+		//delivery address
+		sleep(1);
+		wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(3) div>form>div:first-of-type input")).click();
+
+		wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(3)>div>div>form>div:last-of-type input")).click();
+		//shipping
+		sleep(1);
+		wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(4) div>div>label input")).click();
+	
 		WebElement comment = wd.findElement(By.cssSelector("textarea[name='comment']"));
+		comment.click();
 		comment.sendKeys("Please add gift receipt");
-		WebElement continueBtn2 = wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(4) div.pull-right input"));
-		continueBtn2.click();
-		WebElement cashOnDeliveryRadioBtn =wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(5) label input"));//cash on delivery
-		cashOnDeliveryRadioBtn.click();
-		WebElement termsConditionsCheckbox =wd.findElement(By.cssSelector("div.pull-right  input[type='checkbox']"));
-		termsConditionsCheckbox.click();
-		WebElement continueBtn3 = wd.findElement(By.cssSelector("input#button-payment-method"));
+		WebElement continueBtn3 = wd
+				.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(4) div>div.pull-right input"));
 		continueBtn3.click();
+		//cash on delivery
+		sleep(1);
+		wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(5) div>div>label input")).click();// cash on delivery
 		
+		WebElement termsConditionsCheckbox = wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(5) div>div.pull-right>input:first-of-type"));
+		termsConditionsCheckbox.click();
+		WebElement continueBtn4 = wd.findElement(By.cssSelector("div.panel.panel-default:nth-of-type(5) div>div.pull-right>input:last-of-type"));
+		continueBtn4.click();
+		sleep(1);
+		//verify product name
+		WebElement productName = wd.findElement(By.cssSelector("table.table.table-bordered.table-hover a")); 
+		String compareName = productName.getText();
+		Assert.assertEquals(compareName, "MacBook Pro", "Incorrect item name");
+		System.out.println(compareName);
+		//verify product quantity
+		WebElement productQuantity = wd.findElement(By.cssSelector("table.table.table-bordered.table-hover>tbody>tr>td:nth-of-type(3)")); // verify product quantity
+		String compareQuantity = productQuantity.getText();
+		Assert.assertEquals(compareQuantity, "1", "Incorrect item quantity");
+		System.out.println(compareQuantity);
+		WebElement confirmOrder =wd.findElement(By.cssSelector("div.pull-right input[id='button-confirm']"));//confirm order
+		confirmOrder.click();
+		//order placed
+		sleep(1);
+		WebElement orderPlaced =wd.findElement(By.cssSelector("div#content>h1"));
+		String orderConfirmationText=orderPlaced.getText();
+		Assert.assertEquals(orderConfirmationText, "Your order has been placed!", "error");
+	}
+	
+	public void sleep(int x) {
+		try {
+			Thread.sleep(x*5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@AfterMethod

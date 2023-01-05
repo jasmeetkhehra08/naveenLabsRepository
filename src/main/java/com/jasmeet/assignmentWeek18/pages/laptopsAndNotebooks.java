@@ -1,5 +1,6 @@
 package com.jasmeet.assignmentWeek18.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -15,30 +16,30 @@ public class laptopsAndNotebooks extends TestBase {
 	@FindBy(xpath = "//h2[text()='Laptops & Notebooks']")
 	WebElement verifyTitletext;
 
-	@FindBy(xpath = "#input-sort")
+	@FindBy(css = "#input-sort")
 	WebElement dropDownMenu;
 
 	@FindBy(xpath = "//option[text()='Rating (Highest)']")
 	WebElement highToLow;
 
-	@FindBy(css = "div.col-sm-9>div:nth-of-type(4)>div:first-of-type>div>div:last-of-type>div.button-group>button:first-of-type")
+	@FindBy(css = "div.col-sm-9>div:nth-of-type(4)>div:first-of-type>div>div:last-of-type>div.button-group>button:nth-of-type(2)")
 	WebElement product1;
 
-	@FindBy(css = "div.col-sm-9>div:nth-of-type(4)>div:nth-of-type(2)>div>div:last-of-type>div.button-group>button:first-of-type")
+	@FindBy(css = "div.col-sm-9>div:nth-of-type(4)>div:nth-of-type(2)>div>div:last-of-type>div.button-group>button:nth-of-type(2)")
 	WebElement product2;
 
-	@FindBy(css = "div.col-sm-9>div:nth-of-type(4)>div:nth-of-type(2)>div>div:last-of-type>div.button-group>button:first-of-type")
+	@FindBy(css = "div.col-sm-9>div:nth-of-type(4)>div:nth-of-type(2)>div>div:last-of-type>div.button-group>button:nth-of-type(2)")
 	WebElement product3;
 
-	@FindBy(css = "div.alert>a:last-of-type")
-	WebElement clickOnShoppingCart;
+//	@FindBy(css = "div.alert>a:last-of-type")
+//	WebElement clickOnWishList;
 
 	public String verifyTitleTxt() {
 		return verifyTitletext.getText();
 	}
 
-	@FindBy(xpath = "div.alert")
-	WebElement verifyAlertText;
+//	@FindBy(css = "div.alert")
+//	WebElement verifyAlertText;
 
 	public void dropDownMenu() {
 		dropDownMenu.click();
@@ -52,11 +53,21 @@ public class laptopsAndNotebooks extends TestBase {
 	}
 
 	public String verifyAlertText() {
-		return verifyAlertText.getText();
+		return driver.findElement(By.cssSelector("div.alert")).getText();
 	}
 
-	public shoppingCart clickOnShoppingCart() {
-		clickOnShoppingCart.click();
-		return new shoppingCart();
+	public WishList clickOnWishList() {
+		WebElement clickOnWishList= driver.findElement(By.cssSelector("div.alert>a:last-of-type"));
+		sleep();
+		clickOnWishList.click();
+		return new WishList();
+	}
+	public void sleep() {
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

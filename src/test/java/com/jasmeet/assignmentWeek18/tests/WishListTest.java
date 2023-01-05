@@ -7,14 +7,15 @@ import org.testng.asserts.SoftAssert;
 
 import com.jasmeet.assignmentWeek18.pages.HomePage;
 import com.jasmeet.assignmentWeek18.pages.laptopsAndNotebooks;
-import com.jasmeet.assignmentWeek18.pages.shoppingCart;
+import com.jasmeet.assignmentWeek18.pages.WishList;
+import com.jasmeet.assignmentWeek18.pages.WishList.myWishList;
 import com.naveenAutomation.Base.TestBase;
 import com.naveenAutomationLogin.pages.AccountLogout;
 import com.naveenAutomationLogin.pages.homePage;
 import com.naveenAutomationLogin.pages.loginAccountPage;
 import com.naveenAutomationLogin.pages.myAccountPage;
 
-public class shoppingCartTest extends TestBase {
+public class WishListTest extends TestBase {
 	SoftAssert sf;
 	@BeforeMethod
 	public void setUp() {
@@ -24,6 +25,11 @@ public class shoppingCartTest extends TestBase {
 	
 	@Test
 	public void verifyItemsInShoppingCart() {
+		//login
+		homePage homePage1 = new homePage();
+		loginAccountPage loginAccountPage= homePage1.clickLoginPage();
+		loginAccountPage.login();
+		//select laptop and notebooks
 		HomePage homePage = new HomePage();
 		laptopsAndNotebooks laptopsAndNotebooks=homePage.selectLaptopAndNotebooks();
 		laptopsAndNotebooks.verifyTitleTxt();
@@ -31,7 +37,9 @@ public class shoppingCartTest extends TestBase {
 	laptopsAndNotebooks.dropDownMenu();
 	laptopsAndNotebooks.addProducts();
 	sf.assertEquals(laptopsAndNotebooks.verifyAlertText(), "Success: You have added MavBook Air to your shopping cart!", "wrong alert");
-	shoppingCart shoppingCart=laptopsAndNotebooks.clickOnShoppingCart();
+	WishList wishList=laptopsAndNotebooks.clickOnWishList();
+	System.out.println(wishList.getElementFromTheTable("Product 17", myWishList.MODEL).getText());
+	
 	}
 
 	

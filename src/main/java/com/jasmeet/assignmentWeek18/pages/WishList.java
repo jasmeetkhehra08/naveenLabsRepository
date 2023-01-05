@@ -14,11 +14,25 @@ public class WishList extends TestBase {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void verifyTitle() {
-		driver.getTitle();
+	public String verifyTitle() {
+		return driver.getTitle();
 	}
 
-	public WebElement getElementFromTheTable(String model, myWishList column) {
+	@FindBy(css = "table[class='table table-bordered table-hover'] tbody>tr:last-of-type>td:last-of-type>a")
+	WebElement removeProduct;
+	
+	@FindBy(css = "div.alert")
+	WebElement successBanner;
+	
+	public void removeProduct() {
+		removeProduct.click();
+	}
+	
+	public void successBanner() {
+		successBanner.getText();
+	}
+
+	public WebElement getElementFromTheTable(String productName, myWishList column) {
 
 		int columnIndex = getIndexForColumn(column);
 
@@ -27,8 +41,8 @@ public class WishList extends TestBase {
 
 		for (int i = 0; i < rowsInTable.size(); i++) {
 			List<WebElement> cells = rowsInTable.get(i).findElements(By.cssSelector("td"));
-			String modelText = cells.get(2).getText();
-			if (modelText.equals(model)) {
+			String orderIdText = cells.get(1).getText();
+			if (orderIdText.equals(productName)) {
 				return cells.get(columnIndex);
 			}
 		}
@@ -51,11 +65,7 @@ public class WishList extends TestBase {
 	}
 
 	public enum myWishList {
-		IMAGE("image"),
-		PRODUCT_NAME("product name"), 
-		MODEL("model"), 
-		STOCK("stock"), 
-		UNIT_PRICE("unit price"),
+		IMAGE("image"), PRODUCT_NAME("product name"), MODEL("model"), STOCK("stock"), UNIT_PRICE("unit price"),
 		ACTION("action");
 
 		String name;

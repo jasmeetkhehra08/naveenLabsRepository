@@ -1,5 +1,7 @@
 package com.jasmeet.assignmentWeek18.tests;
 
+import java.time.Duration;
+
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -11,10 +13,8 @@ import com.jasmeet.assignmentWeek18.pages.laptopsAndNotebooks;
 import com.jasmeet.assignmentWeek18.pages.WishList;
 import com.jasmeet.assignmentWeek18.pages.WishList.myWishList;
 import com.naveenAutomation.Base.TestBase;
-import com.naveenAutomationLogin.pages.AccountLogout;
 import com.naveenAutomationLogin.pages.homePage;
 import com.naveenAutomationLogin.pages.loginAccountPage;
-import com.naveenAutomationLogin.pages.myAccountPage;
 
 public class WishListTest extends TestBase {
 	SoftAssert sf;
@@ -38,13 +38,15 @@ public class WishListTest extends TestBase {
 		sf.assertEquals(laptopsAndNotebooks.verifyTitleTxt(), "Laptops & Notebooks", "title does not match");
 		laptopsAndNotebooks.dropDownMenu();
 		laptopsAndNotebooks.addProducts();
+		
 		sf.assertEquals(laptopsAndNotebooks.verifyAlertText(),
-				"Success: You have added MavBook Air to your shopping cart!", "wrong alert");
+				"Success: You have added MacBook Air to your shopping cart!", "wrong alert");
+		
 		WishList wishList = laptopsAndNotebooks.clickOnWishList();
 		sf.assertEquals(wishList.verifyTitle(), "My wish list", "wrong title");
 
 		WebElement product1Name = wishList.getElementFromTheTable("MacBook Air", myWishList.PRODUCT_NAME);
-sf.assertEquals(product1Name, "MacBook Air", "wrong product name");
+		sf.assertEquals(product1Name, "MacBook Air", "wrong product name");
 		WebElement product1Price = wishList.getElementFromTheTable("MacBook Air", myWishList.UNIT_PRICE);
 		sf.assertEquals(product1Price, "MacBook Air", "wrong product price");
 
@@ -52,15 +54,16 @@ sf.assertEquals(product1Name, "MacBook Air", "wrong product name");
 		sf.assertEquals(product2Name, "MacBook Pro", "wrong product name");
 		WebElement product2Price = wishList.getElementFromTheTable("MacBook Pro", myWishList.UNIT_PRICE);
 		sf.assertEquals(product2Price, "MacBook Pro", "wrong product price");
-		
+
 		WebElement product3Name = wishList.getElementFromTheTable("Sony VAIO", myWishList.PRODUCT_NAME);
 		sf.assertEquals(product3Name, "Sony VAIO", "wrong product name");
 		WebElement product3Price = wishList.getElementFromTheTable("Sony VAIO", myWishList.UNIT_PRICE);
 		sf.assertEquals(product3Price, "Sony VAIO", "wrong product price");
-		
-		//remove last item
+
+		// remove last item
 		wishList.removeProduct();
-		wishList.successBanner();
+		//
+		sf.assertEquals(wishList.successBanner(), "Success: You have modified your wish list!", "wrong banner alert");
 	}
 
 	@AfterMethod

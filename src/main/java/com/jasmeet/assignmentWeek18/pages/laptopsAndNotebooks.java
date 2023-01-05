@@ -1,6 +1,5 @@
 package com.jasmeet.assignmentWeek18.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -61,12 +60,4 @@ public class laptopsAndNotebooks extends TestBase {
 		return new WishList();
 	}
 
-	public void sleep() {
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }

@@ -38,8 +38,8 @@ public class TestBase {
 			break;
 		}
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(40));
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
 
 		// Launch a page

@@ -28,8 +28,8 @@ public class WishList extends TestBase {
 		removeProduct.click();
 	}
 	
-	public void successBanner() {
-		successBanner.getText();
+	public String successBanner() {
+		return successBanner.getText();
 	}
 
 	public WebElement getElementFromTheTable(String productName, myWishList column) {
